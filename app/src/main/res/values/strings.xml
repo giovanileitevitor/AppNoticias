@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AppDemo - Cards Santander - JAVA</string>
+    <string name="url_padrao">https://earthquake.usgs.gov/fdsnws/event/1/</string>
+</resources>
