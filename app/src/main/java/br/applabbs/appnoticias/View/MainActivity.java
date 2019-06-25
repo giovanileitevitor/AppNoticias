@@ -9,6 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnAnterior;
     private Button btnProximo;
     private TextView txtRecuperado;
+    private TextView txtTituloCard;
+    private TextView txtConteudoCard;
     private EditText edtURL;
 
     @Override
@@ -39,27 +44,45 @@ public class MainActivity extends AppCompatActivity {
         btnProximo = findViewById(R.id.btnProximo);
 
         txtRecuperado = findViewById(R.id.txtRecuperado);
+        txtTituloCard = findViewById(R.id.txtTituloCard);
+        txtConteudoCard = findViewById(R.id.txtConteudoCard);
+
         edtURL = findViewById(R.id.edtURL);
 
-        btnAtualizar.requestFocus();
+
 
         btnAtualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MyTask task = new MyTask();
                 String urlAPI = "https://blockchain.info/ticker";
-                String urlDigitada = edtURL.getText().toString().trim();
+                //String urlDigitada = edtURL.getText().toString().trim();
+                String CEPdigitado = edtURL.getText().toString().trim();
+                String CEPpadrao = "37540000";
 
-                if(!Utils.isValidUrl(urlDigitada)){
-                    //carrega a tela hardcoded
-                    Toast.makeText(MainActivity.this, "URL Digitada inválida. \nSerá carregada a tela padrão", Toast.LENGTH_SHORT).show();
-                    task.execute(urlAPI);
+
+
+//                if(!Utils.isValidUrl(urlDigitada)){
+//                    //carrega a tela hardcoded
+//                    Toast.makeText(MainActivity.this, "URL Digitada inválida. \nSerá carregada a tela padrão", Toast.LENGTH_SHORT).show();
+//                    task.execute(urlAPI);
+//                }
+//                else{
+//                    //carrega a tela vinda do endereço http
+//                    Toast.makeText(MainActivity.this, "Carregando a tela do endereço Santander", Toast.LENGTH_SHORT).show();
+//                    task.execute(urlDigitada);
+//                }
+
+
+                if(CEPdigitado.isEmpty()){
+                    String urlCEP = "https://viacep.com.br/ws/" + CEPpadrao + "/json/";
+                    task.execute(urlCEP);
                 }
                 else{
-                    //carrega a tela vinda do endereço http
-                    Toast.makeText(MainActivity.this, "Carregando a tela do endereço Santander", Toast.LENGTH_SHORT).show();
-                    task.execute(urlDigitada);
+                    String urlCEP = "https://viacep.com.br/ws/" + CEPdigitado + "/json/";
+                    task.execute(urlCEP);
                 }
+
 
             }
         });
@@ -116,8 +139,25 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String resultado) {
             super.onPostExecute(resultado);
+
+
+            String cep = null;
+            String logradouro = null;
+
+            try {
+                JSONObject jsonObject = new JSONObject(resultado);
+                cep = jsonObject.getString("cep");
+                logradouro = jsonObject.getString("logradouro");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            txtTituloCard.setText(cep);
+            txtConteudoCard.setText(logradouro);
+
             txtRecuperado.setText(resultado);
-            btnAtualizar.setFocusable(true);
+            //btnAtualizar.setFocusable(true);
         }
     }
 

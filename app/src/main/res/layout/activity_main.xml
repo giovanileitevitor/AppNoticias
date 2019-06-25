@@ -22,7 +22,7 @@
                 android:src="@drawable/celular" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/txtTituloCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Card Santander"
@@ -30,7 +30,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/txtConteudoCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lorem ipsum dolor sit amet, x ac arcu finibus vestibulum. Ut cursus mi vitae sollicitudin dapibus. Fusce et tincidunt est.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nisi tortor, faucibus nec dignissim egt est."
@@ -46,8 +46,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:background="?android:attr/listDivider" />
-
-
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -66,8 +64,7 @@
                 <TextView
                     android:id="@+id/txtRecuperado"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:text="............"
@@ -78,8 +75,8 @@
                     android:id="@+id/edtURL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="http://teste.api.com/name?=giovani"
-                    android:text="@string/url_padrao"
+                    android:hint="37540000"
+                    android:text=""
                     android:inputType="text"
                     android:textAlignment="center"/>
 
